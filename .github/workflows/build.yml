@@ -23,9 +23,10 @@ jobs:
           add-to-path: true
 
       - name: Install QPM
-        uses: nickmullen/action-qpm@v1
-        with:
-          version: 'latest'
+        run: |
+          curl -Lo qpm https://github.com/QuestPackageManager/QPM.CLI/releases/latest/download/qpm-linux
+          chmod +x qpm
+          sudo mv qpm /usr/local/bin/qpm
 
       - name: QPM restore
         run: qpm restore
