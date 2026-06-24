@@ -1,0 +1,55 @@
+{
+  "version": "0.1.0",
+  "info": {
+    "name": "AccSaberQuest",
+    "id": "AccSaberQuest",
+    "version": "0.1.0",
+    "url": null,
+    "additionalData": {
+      "modId": "AccSaberQuest",
+      "modVersion": "0.1.0",
+      "soName": "AccSaberQuest"
+    }
+  },
+  "workspace": {
+    "package": ".",
+    "scripts": {
+      "build": "cmake --build build",
+      "configure": "cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release"
+    },
+    "additionalData": {
+      "qmodIncludeSo": true,
+      "compileOptions": {
+        "includePaths": [],
+        "systemIncludes": [],
+        "cppFeatures": [],
+        "cppFlags": [],
+        "cFlags": []
+      }
+    }
+  },
+  "dependencies": [
+    {
+      "id": "beatsaber-hook",
+      "versionRange": "^5.1.12",
+      "additionalData": {}
+    },
+    {
+      "id": "bs-cordl",
+      "versionRange": "^4080.0.0",
+      "additionalData": {
+        "headersOnly": true
+      }
+    },
+    {
+      "id": "bsml",
+      "versionRange": "^0.4.55",
+      "additionalData": {}
+    },
+    {
+      "id": "custom-types",
+      "versionRange": "^0.18.3",
+      "additionalData": {}
+    }
+  ]
+}
