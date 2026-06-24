@@ -15,6 +15,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install QPM
+        run: |
+          curl -Lo /usr/local/bin/qpm \
+            "https://github.com/QuestPackageManager/QPM.CLI/releases/download/0.9.0/qpm-linux-x86_64"
+          chmod +x /usr/local/bin/qpm
+          qpm --version
+
       - name: Set up Android NDK
         uses: nttld/setup-ndk@v1
         id: setup-ndk
@@ -22,15 +29,11 @@ jobs:
           ndk-version: r26d
           add-to-path: true
 
-      - name: Install QPM
-        run: |
-          curl -Lo qpm https://github.com/QuestPackageManager/QPM.CLI/releases/latest/download/qpm-linux-x86_64
-          chmod +x qpm
-          sudo mv qpm /usr/local/bin/qpm
-          qpm --version
-
       - name: QPM restore
         run: qpm restore
+
+      - name: Install Ninja
+        run: sudo apt-get install -y ninja-build
 
       - name: Configure CMake
         run: |
