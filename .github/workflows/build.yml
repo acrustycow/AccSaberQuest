@@ -24,9 +24,10 @@ jobs:
 
       - name: Install QPM
         run: |
-          curl -Lo qpm https://github.com/QuestPackageManager/QPM.CLI/releases/latest/download/qpm-linux
+          curl -Lo qpm https://github.com/QuestPackageManager/QPM.CLI/releases/latest/download/qpm-linux-x86_64
           chmod +x qpm
           sudo mv qpm /usr/local/bin/qpm
+          qpm --version
 
       - name: QPM restore
         run: qpm restore
