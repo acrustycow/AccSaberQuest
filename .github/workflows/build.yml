@@ -17,6 +17,7 @@ jobs:
     
       - name: QPM restore
         run: |
+          export PATH="/usr/local/bin:$PATH"
           qpm restore
           echo "=== extern folder ==="
           find extern -type f 2>/dev/null | head -30 || echo "no extern folder"
