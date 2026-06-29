@@ -17,15 +17,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
     
-      - name: QPM restore
+      - name: Install QPM
         run: |
-          export PATH="/usr/local/bin:$PATH"
-          qpm restore
-          echo "=== extern folder ==="
-          find extern -type f 2>/dev/null | head -30 || echo "no extern folder"
-          qpm s cmake 2>/dev/null || true
-          echo "=== after qpm s cmake ==="
-          find extern -name "*.cmake" 2>/dev/null | head -20
+          curl -SLo /tmp/qpm.zip "https://github.com/QuestPackageManager/QPM.CLI/releases/download/v1.5.9/qpm-linux-x64.zip"
+          unzip /tmp/qpm.zip -d /tmp/qpm_extracted
+          QPM_BIN=$(find /tmp/qpm_extracted -type f -name "qpm*" | head -1)
+          cp "$QPM_BIN" /usr/local/bin/qpm
+          chmod +x /usr/local/bin/qpm
+          echo "/usr/local/bin" >> $GITHUB_PATH
+          qpm --version
 
       - name: Debug extern folder
         run: |
