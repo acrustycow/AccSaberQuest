@@ -10,31 +10,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      PATH: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-    
-      - name: QPM restore
-        run: |
-          qpm restore
-          echo "=== QPM cache ==="
-          ls ~/.local/share/QPM-RS/cache/ 2>/dev/null || echo "no cache"
-          echo "=== copying extern ==="
-          qpm cache show 2>/dev/null || true
-          ls -la extern/ 2>/dev/null || echo "extern still missing"
-
-      - name: List extern
-        run: find extern -type f 2>/dev/null || echo "extern is empty or missing"
-
-      - name: Debug extern folder
-        run: |
-          echo "=== extern folder contents ==="
-          find extern -type f | head -50 || echo "extern folder empty or missing"
-          echo "=== looking for cmake files ==="
-          find . -name "*.cmake" | head -20
 
       - name: Set up Android NDK
         uses: nttld/setup-ndk@v1
@@ -43,15 +22,26 @@ jobs:
           ndk-version: r26d
           add-to-path: true
 
+      - name: Install QPM
+        run: |
+          curl -SLo /tmp/qpm.zip "https://github.com/QuestPackageManager/QPM.CLI/releases/download/v1.5.9/qpm-linux-x64.zip"
+          unzip /tmp/qpm.zip -d /tmp/qpm_extracted
+          QPM_BIN=$(find /tmp/qpm_extracted -type f | head -1)
+          echo "Found QPM binary: $QPM_BIN"
+          cp "$QPM_BIN" /tmp/qpm
+          chmod +x /tmp/qpm
+          /tmp/qpm --version
+
       - name: QPM restore
-        run: qpm restore
+        run: |
+          /tmp/qpm restore
+          find extern -type f 2>/dev/null | head -20 || echo "extern empty"
 
       - name: Install Ninja
         run: sudo apt-get install -y ninja-build
 
       - name: Configure CMake
         run: |
-          export PATH="/usr/local/bin:$PATH"
           cmake -B build \
             -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
@@ -68,7 +58,6 @@ jobs:
         run: |
           QMOD=$(find build -name "*.qmod" | head -1)
           echo "qmod_path=$QMOD" >> $GITHUB_OUTPUT
-          echo "Found qmod: $QMOD"
 
       - name: Upload QMOD artifact
         uses: actions/upload-artifact@v4
