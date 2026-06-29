@@ -1,47 +1,35 @@
 {
+  "$schema": "https://raw.githubusercontent.com/QuestPackageManager/QPM.Package/refs/heads/main/qpm.schema.json",
   "version": "0.1.0",
+  "sharedDir": "shared",
+  "dependenciesDir": "extern",
   "info": {
     "name": "AccSaberQuest",
     "id": "AccSaberQuest",
     "version": "0.1.0",
-    "url": null,
+    "url": "https://github.com/acrustycow/AccSaberQuest",
     "additionalData": {
-      "modId": "AccSaberQuest",
-      "modVersion": "0.1.0",
-      "soName": "AccSaberQuest"
+      "overrideSoName": "libAccSaberQuest.so",
+      "cmake": true
     }
   },
   "workspace": {
-    "package": ".",
-    "sharedDir": "shared",
-    "extraFiles": [],
     "scripts": {
-      "build": ["cmake", "--build", "build"],
-      "configure": ["cmake", "-B", "build", "-G", "Ninja", "-DCMAKE_BUILD_TYPE=Release"]
+      "build": ["pwsh ./scripts/build.ps1"]
     },
-    "additionalData": {
-      "qmodIncludeSo": true,
-      "compileOptions": {
-        "includePaths": [],
-        "systemIncludes": [],
-        "cppFeatures": [],
-        "cppFlags": [],
-        "cFlags": []
-      }
-    }
+    "ndk": "^26.3.11579264",
+    "qmodOutput": "AccSaberQuest.qmod"
   },
   "dependencies": [
     {
       "id": "beatsaber-hook",
-      "versionRange": "^5.1.12",
+      "versionRange": "^6.4.2",
       "additionalData": {}
     },
     {
       "id": "bs-cordl",
-      "versionRange": "^4080.0.0",
-      "additionalData": {
-        "headersOnly": true
-      }
+      "versionRange": "4008.*",
+      "additionalData": {}
     },
     {
       "id": "bsml",
@@ -51,6 +39,16 @@
     {
       "id": "custom-types",
       "versionRange": "^0.18.3",
+      "additionalData": {}
+    },
+    {
+      "id": "scotland2",
+      "versionRange": "^0.1.6",
+      "additionalData": {}
+    },
+    {
+      "id": "paper2_scotland2",
+      "versionRange": "^4.6.4",
       "additionalData": {}
     }
   ]
