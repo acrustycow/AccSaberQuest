@@ -13,6 +13,8 @@
   },
   "workspace": {
     "package": ".",
+    "sharedDir": "shared",
+    "extraFiles": [],
     "scripts": {
       "build": ["cmake", "--build", "build"],
       "configure": ["cmake", "-B", "build", "-G", "Ninja", "-DCMAKE_BUILD_TYPE=Release"]
