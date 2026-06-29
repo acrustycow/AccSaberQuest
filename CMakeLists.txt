@@ -8,7 +8,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(EXTERN_DIR ${CMAKE_CURRENT_LIST_DIR}/extern)
 set(QPM_CACHE $ENV{HOME}/.local/share/QPM-RS/cache)
 
-file(GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp)
+set(SOURCE_FILES
+    ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/AccSaberAPI.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/Hooks.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/MenuPanelController.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/ResultsViewController.cpp
+)
 
 add_library(AccSaberQuest SHARED ${SOURCE_FILES})
 
