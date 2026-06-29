@@ -3,15 +3,18 @@
   "version": "0.1.0",
   "sharedDir": "shared",
   "dependenciesDir": "extern",
-  "info": {
-    "name": "AccSaberQuest",
-    "id": "AccSaberQuest",
-    "version": "0.1.0",
-    "url": "https://github.com/acrustycow/AccSaberQuest",
-    "additionalData": {
-      "overrideSoName": "libAccSaberQuest.so",
-      "cmake": true
-    }
+  "config": {
+    "info": {
+      "name": "AccSaberQuest",
+      "id": "AccSaberQuest",
+      "version": "0.1.0",
+      "url": "https://github.com/acrustycow/AccSaberQuest",
+      "additionalData": {
+        "overrideSoName": "libAccSaberQuest.so",
+        "cmake": true
+      }
+    },
+    "dependencies": []
   },
-  "dependencies": []
+  "restoredDependencies": []
 }
