@@ -25,6 +25,13 @@ jobs:
           chmod +x /usr/local/bin/qpm
           qpm --version
 
+      - name: Debug extern folder
+        run: |
+          echo "=== extern folder contents ==="
+          find extern -type f | head -50 || echo "extern folder empty or missing"
+          echo "=== looking for cmake files ==="
+          find . -name "*.cmake" | head -20
+
       - name: Set up Android NDK
         uses: nttld/setup-ndk@v1
         id: setup-ndk
