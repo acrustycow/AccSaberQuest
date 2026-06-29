@@ -17,15 +17,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
     
-      - name: Install QPM
+      - name: QPM restore
         run: |
-          curl -SLo /tmp/qpm.zip "https://github.com/QuestPackageManager/QPM.CLI/releases/download/v1.5.9/qpm-linux-x64.zip"
-          unzip /tmp/qpm.zip -d /tmp/qpm_extracted
-          QPM_BIN=$(find /tmp/qpm_extracted -type f -name "qpm*" | head -1)
-          cp "$QPM_BIN" /usr/local/bin/qpm
-          chmod +x /usr/local/bin/qpm
-          echo "/usr/local/bin" >> $GITHUB_PATH
-          qpm --version
+          qpm restore
+          echo "=== QPM cache ==="
+          ls ~/.local/share/QPM-RS/cache/ 2>/dev/null || echo "no cache"
+          echo "=== copying extern ==="
+          qpm cache show 2>/dev/null || true
+          ls -la extern/ 2>/dev/null || echo "extern still missing"
+
+      - name: QPM restore
+        run: |
+          qpm restore --force-local 2>/dev/null || qpm restore
+          find extern -type f 2>/dev/null | head -20 || echo "extern empty"
 
       - name: List extern
         run: find extern -type f 2>/dev/null || echo "extern is empty or missing"
