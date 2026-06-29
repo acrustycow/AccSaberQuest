@@ -17,23 +17,11 @@ jobs:
     
       - name: Install QPM
         run: |
-          python3 - <<'EOF'
-          import urllib.request, json, os
-          url = "https://api.github.com/repos/QuestPackageManager/QPM.CLI/releases/tags/v1.5.9"
-          req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-          with urllib.request.urlopen(req) as r:
-              data = json.load(r)
-          assets = data["assets"]
-          for a in assets:
-              name = a["name"].lower()
-              if "linux" in name and "musl" not in name:
-                  print(a["browser_download_url"])
-                  with open("/tmp/qpm_url.txt", "w") as f:
-                      f.write(a["browser_download_url"])
-          EOF
-          QPM_URL=$(cat /tmp/qpm_url.txt)
-          echo "Downloading QPM from: $QPM_URL"
-          curl -SLo /usr/local/bin/qpm "$QPM_URL"
+          curl -SLo /tmp/qpm.zip "https://github.com/QuestPackageManager/QPM.CLI/releases/download/v1.5.9/qpm-linux-x64.zip"
+          unzip /tmp/qpm.zip -d /tmp/qpm_extracted
+          find /tmp/qpm_extracted -type f
+          QPM_BIN=$(find /tmp/qpm_extracted -type f -name "qpm*" | head -1)
+          cp "$QPM_BIN" /usr/local/bin/qpm
           chmod +x /usr/local/bin/qpm
           qpm --version
 
