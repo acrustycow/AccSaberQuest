@@ -27,6 +27,9 @@ jobs:
           echo "/usr/local/bin" >> $GITHUB_PATH
           qpm --version
 
+      - name: List extern
+        run: find extern -type f 2>/dev/null || echo "extern is empty or missing"
+
       - name: Debug extern folder
         run: |
           echo "=== extern folder contents ==="
