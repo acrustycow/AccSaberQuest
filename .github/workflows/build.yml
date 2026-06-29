@@ -14,15 +14,25 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+    
       - name: Install QPM
         run: |
-          QPM_URL=$(curl -sL https://api.github.com/repos/QuestPackageManager/QPM.CLI/releases/latest \
-            | grep "browser_download_url" \
-            | grep "linux" \
-            | grep -v "musl" \
-            | head -1 \
-            | cut -d '"' -f 4)
+          python3 - <<'EOF'
+          import urllib.request, json, os
+          url = "https://api.github.com/repos/QuestPackageManager/QPM.CLI/releases/tags/v1.5.9"
+          req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+          with urllib.request.urlopen(req) as r:
+              data = json.load(r)
+          assets = data["assets"]
+          for a in assets:
+              name = a["name"].lower()
+              if "linux" in name and "musl" not in name:
+                  print(a["browser_download_url"])
+                  with open("/tmp/qpm_url.txt", "w") as f:
+                      f.write(a["browser_download_url"])
+                  break
+          EOF
+          QPM_URL=$(cat /tmp/qpm_url.txt)
           echo "Downloading QPM from: $QPM_URL"
           curl -SLo /usr/local/bin/qpm "$QPM_URL"
           chmod +x /usr/local/bin/qpm
