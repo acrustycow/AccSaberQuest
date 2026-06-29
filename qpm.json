@@ -17,7 +17,7 @@
     "scripts": {
       "build": ["pwsh ./scripts/build.ps1"]
     },
-    "ndk": "^26.3.11579264",
+    "ndk": "^27.3.13750724",
     "qmodOutput": "AccSaberQuest.qmod"
   },
   "dependencies": [
