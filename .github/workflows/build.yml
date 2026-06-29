@@ -30,7 +30,6 @@ jobs:
                   print(a["browser_download_url"])
                   with open("/tmp/qpm_url.txt", "w") as f:
                       f.write(a["browser_download_url"])
-                  break
           EOF
           QPM_URL=$(cat /tmp/qpm_url.txt)
           echo "Downloading QPM from: $QPM_URL"
