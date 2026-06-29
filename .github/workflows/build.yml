@@ -26,11 +26,6 @@ jobs:
           qpm cache show 2>/dev/null || true
           ls -la extern/ 2>/dev/null || echo "extern still missing"
 
-      - name: QPM restore
-        run: |
-          qpm restore --force-local 2>/dev/null || qpm restore
-          find extern -type f 2>/dev/null | head -20 || echo "extern empty"
-
       - name: List extern
         run: find extern -type f 2>/dev/null || echo "extern is empty or missing"
 
