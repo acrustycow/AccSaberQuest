@@ -1,8 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/QuestPackageManager/QPM.Package/refs/heads/main/qpm.schema.json",
-  "version": "0.1.0",
-  "sharedDir": "shared",
-  "dependenciesDir": "extern",
+  "$schema": "https://raw.githubusercontent.com/QuestPackageManager/QPM.Package/refs/heads/main/qpm.shared.schema.json",
   "config": {
     "info": {
       "name": "AccSaberQuest",
@@ -14,7 +11,9 @@
         "cmake": true
       }
     },
-    "dependencies": []
+    "dependencies": [],
+    "sharedDir": "shared",
+    "dependenciesDir": "extern"
   },
   "restoredDependencies": []
 }
