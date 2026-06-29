@@ -17,11 +17,16 @@ jobs:
 
       - name: Install QPM
         run: |
-          curl -SLo /usr/local/bin/qpm \
-            "https://github.com/QuestPackageManager/QPM.CLI/releases/download/v1.5.10/qpm-linux-x86_64"
+          QPM_URL=$(curl -sL https://api.github.com/repos/QuestPackageManager/QPM.CLI/releases/latest \
+            | grep "browser_download_url" \
+            | grep "linux" \
+            | grep -v "musl" \
+            | head -1 \
+            | cut -d '"' -f 4)
+          echo "Downloading QPM from: $QPM_URL"
+          curl -SLo /usr/local/bin/qpm "$QPM_URL"
           chmod +x /usr/local/bin/qpm
           qpm --version
-
 
       - name: Set up Android NDK
         uses: nttld/setup-ndk@v1
