@@ -14,8 +14,8 @@
   "workspace": {
     "package": ".",
     "scripts": {
-      "build": "cmake --build build",
-      "configure": "cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release"
+      "build": ["cmake", "--build", "build"],
+      "configure": ["cmake", "-B", "build", "-G", "Ninja", "-DCMAKE_BUILD_TYPE=Release"]
     },
     "additionalData": {
       "qmodIncludeSo": true,
