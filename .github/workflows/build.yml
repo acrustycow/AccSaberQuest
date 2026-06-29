@@ -59,8 +59,12 @@ jobs:
       - name: Install Ninja
         run: sudo apt-get install -y ninja-build
 
+      - name: Show CMakeLists
+        run: cat CMakeLists.txt
+
       - name: Configure CMake
         run: |
+          rm -rf build
           cmake -B build \
             -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
