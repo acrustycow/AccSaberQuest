@@ -17,7 +17,7 @@ jobs:
 
       - name: List repo files
         run: find . -not -path './.git/*' -type f
- 
+
       - name: Set up Android NDK
         uses: nttld/setup-ndk@v1
         id: setup-ndk
@@ -30,7 +30,6 @@ jobs:
           curl -SLo /tmp/qpm.zip "https://github.com/QuestPackageManager/QPM.CLI/releases/download/v1.5.9/qpm-linux-x64.zip"
           unzip /tmp/qpm.zip -d /tmp/qpm_extracted
           QPM_BIN=$(find /tmp/qpm_extracted -type f | head -1)
-          echo "Found QPM binary: $QPM_BIN"
           cp "$QPM_BIN" /tmp/qpm
           chmod +x /tmp/qpm
           /tmp/qpm --version
@@ -38,27 +37,21 @@ jobs:
       - name: QPM restore
         run: |
           /tmp/qpm restore || true
-          echo "=== Manually copying from QPM cache to extern ==="
           mkdir -p extern/includes extern/libs
           QPM_CACHE=~/.local/share/QPM-RS/cache
-          # Copy all headers
           find $QPM_CACHE -path "*/shared/*" -name "*.hpp" | while read f; do
             pkg=$(echo $f | cut -d'/' -f9)
             mkdir -p extern/includes/$pkg
             cp "$f" extern/includes/$pkg/ 2>/dev/null || true
           done
-          # Copy all .so files
           find $QPM_CACHE -name "lib*.so" ! -name "*.debug.so" -exec cp {} extern/libs/ \; 2>/dev/null || true
-          # Generate extern.cmake
           cat > extern/extern.cmake << 'EOF'
           set(EXTERN_DIR ${CMAKE_CURRENT_LIST_DIR}/extern)
           include_directories(${EXTERN_DIR}/includes)
           link_directories(${EXTERN_DIR}/libs)
           EOF
-          echo "=== extern contents ==="
-          find extern -type f | head -30
-                
-       - name: Dump all header locations
+
+      - name: Dump all header locations
         run: |
           QPM_CACHE=~/.local/share/QPM-RS/cache
           echo "=== beatsaber-hook ==="
@@ -75,16 +68,9 @@ jobs:
           find $QPM_CACHE/scotland2 -name "*.hpp" | head -5
           echo "=== paper2 ==="
           find $QPM_CACHE/paper2_scotland2 -name "*.hpp" | head -5
-      
-      - name: Find fmt headers
-        run: find ~/.local/share/QPM-RS/cache/fmt -type f -name "*.h" | head -20
-
 
       - name: Install Ninja
         run: sudo apt-get install -y ninja-build
-
-      - name: Show CMakeLists
-        run: cat CMakeLists.txt
 
       - name: Configure CMake
         run: |
