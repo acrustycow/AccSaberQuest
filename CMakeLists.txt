@@ -34,6 +34,8 @@ target_include_directories(AccSaberQuest PRIVATE
     ${QPM_CACHE}/fmt/11.0.2/src
     ${QPM_CACHE}/tinyxml2/10.0.0/tmp/include
     ${QPM_CACHE}/libil2cpp/0.4.0/src/il2cpp/libil2cpp
+    ${QPM_CACHE}/libil2cpp/0.4.0/src/il2cpp/libil2cpp/utils
+
 
 )
 
