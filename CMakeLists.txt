@@ -30,6 +30,8 @@ target_include_directories(AccSaberQuest PRIVATE
     ${QPM_CACHE}/paper2_scotland2/4.7.0/tmp/shared
     ${QPM_CACHE}/scotland2/0.1.7/tmp/shared
     ${QPM_CACHE}/fmt/11.0.2/tmp/fmt/include
+    ${QPM_CACHE}/fmt/11.0.2/tmp/fmt
+    ${QPM_CACHE}/fmt/11.0.2/tmp
     ${QPM_CACHE}/tinyxml2/10.0.0/tmp/include
 )
 
