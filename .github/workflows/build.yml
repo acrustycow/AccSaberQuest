@@ -15,6 +15,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: List repo files
+        run: find . -not -path './.git/*' -type f
+ 
       - name: Set up Android NDK
         uses: nttld/setup-ndk@v1
         id: setup-ndk
