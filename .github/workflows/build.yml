@@ -58,6 +58,24 @@ jobs:
           echo "=== extern contents ==="
           find extern -type f | head -30
                 
+       - name: Dump all header locations
+        run: |
+          QPM_CACHE=~/.local/share/QPM-RS/cache
+          echo "=== beatsaber-hook ==="
+          find $QPM_CACHE/beatsaber-hook -name "*.hpp" | head -5
+          echo "=== bs-cordl ==="
+          find $QPM_CACHE/bs-cordl -name "*.hpp" | head -5
+          echo "=== bsml ==="
+          find $QPM_CACHE/bsml -name "*.hpp" | head -5
+          echo "=== custom-types ==="
+          find $QPM_CACHE/custom-types -name "*.hpp" | head -5
+          echo "=== libil2cpp ==="
+          find $QPM_CACHE/libil2cpp -type f | head -10
+          echo "=== scotland2 ==="
+          find $QPM_CACHE/scotland2 -name "*.hpp" | head -5
+          echo "=== paper2 ==="
+          find $QPM_CACHE/paper2_scotland2 -name "*.hpp" | head -5
+      
       - name: Find fmt headers
         run: find ~/.local/share/QPM-RS/cache/fmt -type f -name "*.h" | head -20
 
