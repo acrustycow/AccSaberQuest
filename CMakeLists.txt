@@ -9,16 +9,17 @@ set(EXTERN_DIR ${CMAKE_CURRENT_LIST_DIR}/extern)
 set(QPM_CACHE $ENV{HOME}/.local/share/QPM-RS/cache)
 
 set(SOURCE_FILES
-    ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/AccSaberAPI.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/Hooks.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/MenuPanelController.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/ResultsViewController.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/main.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/AccSaberAPI.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Hooks.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/MenuPanelController.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/ResultsViewController.cpp
 )
 
 add_library(AccSaberQuest SHARED ${SOURCE_FILES})
 
 target_include_directories(AccSaberQuest PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}
     ${CMAKE_CURRENT_LIST_DIR}/include
     ${EXTERN_DIR}/includes
     ${QPM_CACHE}/beatsaber-hook/6.4.2/tmp/shared
