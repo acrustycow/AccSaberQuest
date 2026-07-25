@@ -57,6 +57,9 @@ jobs:
           EOF
           echo "=== extern contents ==="
           find extern -type f | head -30
+                
+      - name: Find fmt headers
+        run: find ~/.local/share/QPM-RS/cache/fmt -type f -name "*.h" | head -20
 
 
       - name: Install Ninja
